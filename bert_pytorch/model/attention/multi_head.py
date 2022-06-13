@@ -25,6 +25,7 @@ class MultiHeadedAttention(nn.Module):
         batch_size = query.size(0)
 
         # 1) Do all the linear projections in batch from d_model => h x d_k
+        # 这里是方便叠加为multi attention，这里的-1代表sequence length,transpose的作用是将multi放在旁边让接下来的attention计算不会干扰multi
         query, key, value = [l(x).view(batch_size, -1, self.h, self.d_k).transpose(1, 2)
                              for l, x in zip(self.linear_layers, (query, key, value))]
 
