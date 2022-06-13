@@ -33,6 +33,7 @@ class MultiHeadedAttention(nn.Module):
         x, attn = self.attention(query, key, value, mask=mask, dropout=self.dropout)
 
         # 3) "Concat" using a view and apply a final linear.
+        # 再用transpose恢复之前的形状，并再融合multi特征到一个维度
         x = x.transpose(1, 2).contiguous().view(batch_size, -1, self.h * self.d_k)
 
         return self.output_linear(x)
