@@ -6,10 +6,13 @@ from collections import Counter
 class TorchVocab(object):
     """Defines a vocabulary object that will be used to numericalize a field.
     Attributes:
+        # 统计的词频
         freqs: A collections.Counter object holding the frequencies of tokens
             in the data used to build the Vocab.
+        # 词组token到数字编号的映射字典
         stoi: A collections.defaultdict instance mapping token strings to
             numerical identifiers.
+        # 词组token的列表，index是它的数字编号
         itos: A list of token strings indexed by their numerical identifiers.
     """
 
@@ -182,4 +185,5 @@ def build():
         vocab = WordVocab(f, max_size=args.vocab_size, min_freq=args.min_freq)
 
     print("VOCAB SIZE:", len(vocab))
+    # 写入的是vocab的对象
     vocab.save_vocab(args.output_path)
